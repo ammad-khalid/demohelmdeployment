@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: mysql-server
+  labels:
+    app: {{ .Values.metadata.labels.app }}
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+       app: {{ .Values.selector.matchLabels.app }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.metadata.labels.app }}
+    spec:
+      containers:
+      - name: mysql-server
+        image: mysql:5.6
+        env:
+        - name: MYSQL_DATABASE
+          value: demo
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: password
+        ports:
+        - containerPort: 3306
+        volumeMounts: 
+        - mountPath: /var/lib/mysql
+          name: mysql-persistent-storage
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: {{ .Values.volumes.persistentVolumeClaim.claimName }}
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql-service
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+   app: {{ .Values.spec.selector.app }}
+  ports:
+    - name: mysql
+      protocol: TCP
+      port: 3306
+      targetPort: 3306

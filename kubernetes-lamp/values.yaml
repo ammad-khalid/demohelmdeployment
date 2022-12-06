@@ -1,0 +1,30 @@
+namespace: app1
+metadata:
+  claimname: app1-pvc-claim
+  name: app1pv
+  labels:
+    app: app1
+spec:
+  volumename: app1pv
+  selector:
+   app: app1
+
+selector:
+  matchLabels:
+    app: app1
+
+#image:
+#  repository: quay.io/inpixon/visualix-amazing
+#  tag: 21.36
+#gorestimage:
+#  repository: quay.io/inpixon/visualix-gorest
+#  tag: 21.222
+#brunoimage:
+#  repository: quay.io/inpixon/visualix-bruno
+#  tag: dev-21.45
+
+
+volumes:
+  persistentVolumeClaim:
+          claimName: app1-pvc-claim
+  

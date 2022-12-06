@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: webserveras
+  labels:
+    app: {{ .Values.metadata.labels.app }}
+spec:
+  replicas: 1
+  selector:
+     matchLabels:
+       app: {{ .Values.selector.matchLabels.app }}
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.metadata.labels.app }}
+    spec:
+      containers:
+      - name: webserver
+        #image: docker.io/ameng/php7-apache2
+        image: public.ecr.aws/r9j4k4q3/lampserver:latest
+        env:
+        - name: DB_HOST
+          value: mysql-service
+        - name: DB_NAME
+          value: demo
+        - name: DB_USER
+          value: root
+        - name: DB_PWD
+          valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: password
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: webserver
+  namespace: {{ .Values.namespace }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ .Values.spec.selector.app }}
+  ports:
+    - name: php
+      protocol: TCP
+      port: 80
+      targetPort: 80

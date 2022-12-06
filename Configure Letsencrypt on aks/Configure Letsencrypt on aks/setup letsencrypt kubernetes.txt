@@ -1,0 +1,36 @@
+To setup Letsencrypt SSL on k8:
+
+1. Need to install nginx controller to run nginx ingress on aks.
+
+we will install nginx controller from Helm
+
+# Create a namespace for your ingress resources
+kubectl create namespace ingress-basic
+
+# Add the ingress-nginx repository
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+
+# Use Helm to deploy an NGINX ingress controller
+helm install nginx-ingress ingress-nginx/ingress-nginx --namespace alfredcapi --set controller.replicaCount=1 --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux --set controller.admissionWebhooks.patch.nodeSelector."beta\.kubernetes\.io/os"=linux
+Install Helm:
+
+1. wget https://get.helm.sh/helm-v3.4.1-linux-amd64.tar.gz
+2. tar xvf helm-v3.4.1-linux-amd64.tar.gz
+3. sudo mv linux-amd64/helm /usr/local/bin
+4. rm helm-v3.4.1-linux-amd64.tar.gz
+5. rm -rf linux-amd64
+6. helm version
+
+2. Install cert-manager using helm on aks cluster:
+
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.10.1 --set installCRDs=true
+
+3. Create a Certificate issuer yaml file. attached in same folder.
+
+4. Create ingress yaml file, i have added it in manifest.yml file attached in same folder.
+
+Main Link: https://www.cloudsavvyit.com/14069/how-to-install-kubernetes-cert-manager-and-configure-lets-encrypt/ 
+
+Helping Links: https://www.thinktecture.com/en/kubernetes/ssl-certificates-with-cert-manager-in-kubernetes/

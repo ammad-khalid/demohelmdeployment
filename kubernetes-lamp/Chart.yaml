@@ -1,0 +1,5 @@
+apiVersion: v2
+name: lampserver
+description: LampServer Deployment
+appVersion: "8.0.0"
+version: 0.1.0
