@@ -26,7 +26,7 @@ pipeline {
     
     
     }
-  	stage('Docker Build & Push') {
+  	/*stage('Docker Build & Push') {
     	
       steps {
         sh 'pwd && ls -lha'
@@ -34,6 +34,12 @@ pipeline {
         sh 'aws ecr-public get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin public.ecr.aws/r9j4k4q3/lampserver'
         sh 'docker push public.ecr.aws/r9j4k4q3/lampserver:latest'
       }
+    }*/
+    stage ('eks connection') {
+      steps {
+      sh 'aws configure set aws_access_key_id "AKIA3K2MO5J64WESUUG5"'
+      }
+    
     }
   }
 }
