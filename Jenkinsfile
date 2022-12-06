@@ -60,6 +60,7 @@ pipeline {
     stage ('eks connection') {
       steps {
       sh 'aws configure set aws_access_key_id "AKIA3K2MO5J64WESUUG5"'
+      sh 'cat ~/.aws/credentials'  
       }
     
     }
