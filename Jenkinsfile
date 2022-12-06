@@ -29,7 +29,7 @@ pipeline {
       sh 'yum install make gcc perl pcre-devel zlib-devel wget -y'
       sh 'wget https://ftp.openssl.org/source/old/1.1.1/openssl-1.1.1.tar.gz' 
       sh 'tar xvf openssl-1.1.1.tar.gz'
-      sh 'cd openssl-1.1.1/'
+      sh 'cd openssl-1.1.1/ && ls -lha'
       sh './config --prefix=/usr --openssldir=/etc/ssl --libdir=lib no-shared zlib-dynamic'
       sh 'make && make test && make install'
       sh 'export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64'
