@@ -1,6 +1,15 @@
 pipeline {
   agent any
   stages {
+    stage('Checkout') {
+        steps {
+            git branch: 'main',
+                credentialsId: '$demo',
+                url: 'https://github.com/ammad-khalid/demohelmdeployment.git/'
+
+            sh "ls -lat"
+        }
+    }
     stage ('adding dependencies') {
       steps {
          sh 'yum update -y && yum install -y yum-utils makecache unzip'
