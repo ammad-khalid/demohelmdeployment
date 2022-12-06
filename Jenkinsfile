@@ -42,7 +42,7 @@ pipeline {
         sh 'wget https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz'
         sh 'tar -xvf helm-v3.6.3-linux-amd64.tar.gz'
         sh 'mv linux-amd64/helm /usr/local/bin/helm'
-        sh 'helm --version'  
+        sh 'helm version'  
         }
       
       }
