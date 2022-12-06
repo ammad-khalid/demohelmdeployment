@@ -63,7 +63,9 @@ pipeline {
       sh 'aws configure set aws_secret_access_key "gvAZ+PDBmJ4TqtLd7arMxw6hFfobjFbxQAMCGWHW"'
       sh 'aws configure set region "eu-central-1"'
       sh 'aws configure set output "json"'
-      sh 'cat ~/.aws/credentials'  
+      /*sh 'cat ~/.aws/credentials'*/
+      sh 'aws eks --region eu-west-1 update-kubeconfig --name jenkins'
+      sh 'helm upgrade --install lamp -n app1 kubernetes-lamp/.'  
       }
     
     }
