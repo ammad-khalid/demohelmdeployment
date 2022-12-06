@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Checkout') {
+    /*stage('Checkout') {
         steps {
             git branch: 'main',
                 credentialsId: '$demo',
@@ -9,14 +9,14 @@ pipeline {
 
             sh "ls -lat"
         }
-    }
+    }*/
     stage ('adding dependencies') {
       steps {
          sh 'yum update -y && yum install -y yum-utils makecache unzip'
          /*sh 'yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo'
          sh 'yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y'
          sh 'systemctl start docker'*/
-         sh 'rm -rf *'
+         sh 'rm -rf awscliv2.zip awscliv2'
          sh 'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
          sh 'unzip awscliv2.zip'
          sh './aws/install --update'
