@@ -7,7 +7,7 @@ pipeline {
          /*sh 'yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo'
          sh 'yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y'
          sh 'systemctl start docker'*/
-        
+         sh 'sudo rm -rf *'
          sh 'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
          sh 'unzip awscliv2.zip'
          sh './aws/install --update'
