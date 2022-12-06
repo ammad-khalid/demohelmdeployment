@@ -59,7 +59,10 @@ pipeline {
     }*/
     stage ('eks connection') {
       steps {
-      sh 'aws configure set aws_access_key_id "AKIA3K2MO5J64WESUUG5" set aws_secret_access_key "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" set region = "eu-central-1" set output = "json"'
+      sh 'aws configure set aws_access_key_id "AKIA3K2MO5J64WESUUG5"' 
+      sh 'aws configure set aws_secret_access_key "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"'
+      sh 'aws configure set region = "eu-central-1"'
+      sh 'aws configure set output = "json"'
       sh 'cat ~/.aws/credentials'  
       }
     
