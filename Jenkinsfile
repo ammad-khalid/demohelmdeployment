@@ -24,6 +24,19 @@ pipeline {
        
       }
     }
+    stage ('openssl') {
+      steps {
+      sh 'yum install make gcc perl pcre-devel zlib-devel wget -y'
+      sh 'wget https://ftp.openssl.org/source/old/1.1.1/openssl-1.1.1.tar.gz' 
+      sh 'tar xvf openssl-1.1.1.tar.gz'
+      sh 'cd openssl-1.1.1/'
+      sh './config --prefix=/usr --openssldir=/etc/ssl --libdir=lib no-shared zlib-dynamic'
+      sh 'make && make test && make install'
+      sh 'export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64'
+      sh 'echo "export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/lib64" >> ~/.bashrc'
+      sh 'openssl version'
+      }
+    }
     stage ('helm install') {
         steps {
         sh 'curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3'
