@@ -1,0 +1,11 @@
+To setup Letsencrypt SSL on k8:
+
+1. Install cert-manager using helm on aks cluster:
+
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.10.1 --set installCRDs=true
+
+2. Create a Certificate issuer yaml file. attached in Template folder.
+
+3. Configure ingress yaml file & add secret name as issuer name in file.
