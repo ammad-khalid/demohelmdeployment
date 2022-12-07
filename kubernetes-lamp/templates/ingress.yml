@@ -10,7 +10,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/proxy-body-size: 300m
     nginx.org/client-max-body-size: "50m"
-    #cert-manager.io/cluster-issuer: letsencrypt-app1-dev
+    cert-manager.io/cluster-issuer: letsencrypt-app1-dev
 spec:
   defaultBackend:
      service:
@@ -28,7 +28,7 @@ spec:
                 name: webserver
                 port: 
                   number: 80
-  #tls:
-  #  - secretName: letsencrypt-app1-dev
-  #    hosts:
-  #     - app1.oneclickbazar.com
+  tls:
+    - secretName: letsencrypt-app1-dev
+      hosts:
+       - app1.oneclickbazar.com
