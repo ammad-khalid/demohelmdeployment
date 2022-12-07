@@ -18,7 +18,7 @@ spec:
        port: 
         number: 80
   rules:
-    - host: app1.oneclickbazar.com
+    - host: app1.oneclickbazar.com ## DNS name, I have used this DNS.
       http:
         paths:
           - path: /
