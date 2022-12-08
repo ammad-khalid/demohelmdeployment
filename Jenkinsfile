@@ -81,7 +81,7 @@ pipeline {
         sh 'cd ${WORKSPACE}'
         sh 'git fetch --tags'
         sh 'git checkout ${GIT_BRANCH}'
-        sh 'cd ${WORKSPACE}/demohelmdeployment/kubernetes-lamp/templates/'
+        sh 'cd ${WORKSPACE}/kubernetes-lamp/templates/'
         sh 'sed -i "s/tag: .*/tag: ${BUILD_ID}/g" php-apache.yaml'
         sh 'git add php-apache.yaml'
         sh 'git commit --allow-empty -m "Version stamp ${BUILD_ID}"'
