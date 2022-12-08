@@ -12,8 +12,8 @@ pipeline {
     }*/
     stage ('adding dependencies') {
       steps {
-         #sh 'apt-get update && apt-get install -y unzip'
-         /*sh 'yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo'
+         /*sh 'apt-get update && apt-get install -y unzip'
+         sh 'yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo'
          sh 'yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y'
          sh 'systemctl start docker'*/
          sh 'rm -rf awscliv2.zip awscliv2 aws'
