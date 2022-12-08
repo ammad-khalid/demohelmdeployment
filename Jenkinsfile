@@ -53,7 +53,7 @@ pipeline {
       steps {
         sh 'pwd && ls -lha'
         sh 'docker build -t 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver:${BUILD_ID} -f docker/Dockerfile .'
-        sh 'aws get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver'
+        sh 'aws get-login-password --region us-east-1 | docker login --username AWS --password-stdin 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver'
         sh 'docker push 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver:${BUILD_ID}'
       }
     }
