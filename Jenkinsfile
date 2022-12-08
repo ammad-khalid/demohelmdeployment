@@ -55,10 +55,9 @@ pipeline {
         sh 'aws configure set aws_secret_access_key "${KEY_SECRET}"'
         sh 'aws configure set region "eu-central-1"'
         sh 'aws configure set output "json"'
-        sh 'aws ecr get-login --no-include-email --region us-east-1'
+        sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 779160054397.dkr.ecr.us-east-1.amazonaws.com'
 
         sh 'pwd && ls -lha'
-        /*sh '$(aws ecr login)'*/
         sh 'docker build -t 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver:${BUILD_ID} -f docker/Dockerfile .'
         /*sh 'aws get-login-password --region us-east-1 | docker login --username AWS --password-stdin 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver'*/
         sh 'docker push 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver:${BUILD_ID}'
