@@ -15,11 +15,11 @@ pipeline {
          /*sh 'apt-get update && apt-get install -y unzip'
          sh 'yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo'
          sh 'yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y'
-         sh 'systemctl start docker'*/
+         sh 'systemctl start docker'
          sh 'rm -rf awscliv2.zip awscliv2 aws'
          sh 'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
          sh 'unzip awscliv2.zip'
-         sh './aws/install --update'
+         sh './aws/install --update'*/
          
        
       }
@@ -37,7 +37,7 @@ pipeline {
       sh 'openssl version'
       }
     }*/
-    stage ('helm install') {
+    /*stage ('helm install') {
         steps {
         sh 'wget https://get.helm.sh/helm-v3.6.3-linux-amd64.tar.gz'
         sh 'tar -xvf helm-v3.6.3-linux-amd64.tar.gz'
@@ -47,7 +47,7 @@ pipeline {
       
       }
     
-    
+    */
   	stage('Docker Build & Push') {
     	
       steps {
