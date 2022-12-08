@@ -81,9 +81,9 @@ pipeline {
         sh 'cd ${WORKSPACE}'
         sh 'git fetch --tags'
         sh 'git checkout ${GIT_BRANCH}'
-        sh 'cd ${WORKSPACE}/kubernetes-lamp/'
-        sh 'sed -i "s/tag: .*/tag: ${BUILD_ID}/g" values.yaml'
-        sh 'git add values.yaml'
+        /*sh 'cd ${WORKSPACE}/kubernetes-lamp/'*/
+        sh 'sed -i "s/tag: .*/tag: ${BUILD_ID}/g" ${WORKSPACE}/kubernetes-lamp/values.yaml'
+        sh 'git add ${WORKSPACE}/kubernetes-lamp/values.yaml'
         sh 'git commit --allow-empty -m "Version stamp ${BUILD_ID}"'
         sh 'git push'
       }
