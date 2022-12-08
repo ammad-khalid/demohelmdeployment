@@ -48,15 +48,15 @@ pipeline {
       }
     
     
-  	/*stage('Docker Build & Push') {
+  	stage('Docker Build & Push') {
     	
       steps {
         sh 'pwd && ls -lha'
-      	sh 'docker build -t public.ecr.aws/r9j4k4q3/lampserver:latest -f docker/Dockerfile .'
-        sh 'aws ecr-public get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin public.ecr.aws/r9j4k4q3/lampserver'
-        sh 'docker push public.ecr.aws/r9j4k4q3/lampserver:latest'
+      	sh 'docker build -t 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver:latest -f docker/Dockerfile .'
+        sh 'aws get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver'
+        sh 'docker push 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver:latest'
       }
-    }*/
+    }
     stage ('eks connection') {
       steps {
       sh 'aws configure set aws_access_key_id "$KEY_ID"' 
