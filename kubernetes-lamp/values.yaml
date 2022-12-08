@@ -13,15 +13,9 @@ selector:
   matchLabels:
     app: app1
 
-#image:
-#  repository: quay.io/inpixon/visualix-amazing
-#  tag: 21.36
-#gorestimage:
-#  repository: quay.io/inpixon/visualix-gorest
-#  tag: 21.222
-#brunoimage:
-#  repository: quay.io/inpixon/visualix-bruno
-#  tag: dev-21.45
+image:
+  repository: 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver
+  tag: 21.36
 
 
 volumes:
