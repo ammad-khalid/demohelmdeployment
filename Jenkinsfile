@@ -74,7 +74,7 @@ pipeline {
       steps {
         sh 'git config --global user.email "${EMAIL}"'
         sh 'git config --global user.name "${USERNAME}"'
-        sh 'git remote set-url origin https://${GH_TOKEN}@github.com/Jibestream/visualix-gorest.git/'
+        sh 'git remote set-url origin https://${GH_TOKEN}@github.com/ammad-khalid/demohelmdeployment.git/'
         sh 'git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*'
         
         
