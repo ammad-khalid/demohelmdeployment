@@ -3,7 +3,10 @@ pipeline {
   environment {
     KEY_ID = credentials('KEY_ID')
     KEY_SECRET = credentials('KEY_SECRET')
-  
+    ACCOUNT_ID = credentials('ACCOUNT_ID')
+    EMAIL = credentials('EMAIL')
+    USERNAME = credentials('USERNAME')
+    GH_TOKEN = credentials('GH_TOKEN')
   }
   stages {
     /*stage('Checkout') {
@@ -60,22 +63,39 @@ pipeline {
         sh 'aws configure set aws_secret_access_key "${KEY_SECRET}"'
         sh 'aws configure set region "eu-central-1"'
         sh 'aws configure set output "json"'
-        sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 779160054397.dkr.ecr.us-east-1.amazonaws.com'
+        sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com'
 
         sh 'pwd && ls -lha'
-        sh 'docker build -t 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver:${BUILD_ID} -f docker/Dockerfile .'
-        /*sh 'aws get-login-password --region us-east-1 | docker login --username AWS --password-stdin 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver'*/
-        sh 'docker push 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver:${BUILD_ID}'
+        sh 'docker build -t ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/lampserver:${BUILD_ID} -f docker/Dockerfile .'
+        sh 'docker push ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/lampserver:${BUILD_ID}'
       }
     }
-    stage ('eks connection') {
+    stage ('change Tag in app manifest') {
+      steps {
+        sh 'git config --global user.email "${EMAIL}"'
+        sh 'git config --global user.name "${USERNAME}"'
+        sh 'git remote set-url origin https://${GH_TOKEN}@github.com/Jibestream/visualix-gorest.git/'
+        sh 'git config --replace-all remote.origin.fetch +refs/heads/*:refs/remotes/origin/*'
+        
+        
+        sh 'cd ${WORKSPACE}'
+        sh 'git fetch --tags'
+        sh 'git checkout ${GIT_BRANCH}'
+        sh 'cd ${WORKSPACE}/demohelmdeployment/kubernetes-lamp/templates/'
+        sh 'sed -i "s/tag: .*/tag: ${BUILD_ID}/g" php-apache.yaml'
+        sh 'git add php-apache.yaml'
+        sh 'git commit --allow-empty -m "Version stamp ${BUILD_ID}"'
+        sh 'git push'
+      }
+    }
+    /*stage ('eks connection') {
       steps {
               /*sh 'cat ~/.aws/credentials'*/
       sh 'aws eks --region eu-west-1 update-kubeconfig --name jenkins'
       sh 'helm upgrade --install lamp -n app1 kubernetes-lamp/.'  
       }
     
-    }
+    }*/
   }
 
 }
