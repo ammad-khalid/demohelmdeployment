@@ -85,7 +85,7 @@ pipeline {
         sh 'sed -i "s/tag: .*/tag: ${BUILD_ID}/g" ${WORKSPACE}/kubernetes-lamp/values.yaml'
         sh 'git add ${WORKSPACE}/kubernetes-lamp/values.yaml'
         sh 'git commit --allow-empty -m "Version stamp ${BUILD_ID}"'
-        sh 'git push'
+        sh 'git push origin HEAD:main --force'
       }
     }
     /*stage ('eks connection') {
