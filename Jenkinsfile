@@ -1,5 +1,10 @@
 pipeline {
   agent any
+  environment {
+    KEY_ID = credentials('KEY_ID')
+    KEY_SECRET = credentials('KEY_SECRET')
+  
+  }
   stages {
     /*stage('Checkout') {
         steps {
