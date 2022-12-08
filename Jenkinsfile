@@ -12,7 +12,7 @@ pipeline {
     }*/
     stage ('adding dependencies') {
       steps {
-         sh 'yum update -y && yum install -y yum-utils makecache unzip'
+         sh 'apt-get update && apt-get install -y unzip'
          /*sh 'yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo'
          sh 'yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y'
          sh 'systemctl start docker'*/
@@ -52,15 +52,15 @@ pipeline {
     	
       steps {
         sh 'pwd && ls -lha'
-      	sh 'docker build -t 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver:latest -f docker/Dockerfile .'
+        sh 'docker build -t 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver:${BUILD_ID} -f docker/Dockerfile .'
         sh 'aws get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver'
-        sh 'docker push 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver:latest'
+        sh 'docker push 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver:${BUILD_ID}'
       }
     }
     stage ('eks connection') {
       steps {
-      sh 'aws configure set aws_access_key_id "$KEY_ID"' 
-      sh 'aws configure set aws_secret_access_key "$KEY_SECRET"'
+        sh 'aws configure set aws_access_key_id "${KEY_ID}"' 
+        sh 'aws configure set aws_secret_access_key "${KEY_SECRET}"'
       sh 'aws configure set region "eu-central-1"'
       sh 'aws configure set output "json"'
       /*sh 'cat ~/.aws/credentials'*/
