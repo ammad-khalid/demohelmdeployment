@@ -90,7 +90,7 @@ pipeline {
     }
     /*stage ('eks connection') {
       steps {
-              /*sh 'cat ~/.aws/credentials'*/
+      sh 'cat ~/.aws/credentials'
       sh 'aws eks --region eu-west-1 update-kubeconfig --name jenkins'
       sh 'helm upgrade --install lamp -n app1 kubernetes-lamp/.'  
       }
