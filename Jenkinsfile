@@ -19,11 +19,11 @@ pipeline {
          sh 'rm -rf awscliv2.zip awscliv2 aws'
          sh 'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
          sh 'unzip awscliv2.zip'
-         sh './aws/install --update'*/
+         sh './aws/install --update'
          
        
       }
-    }
+    }*/
     /*stage ('openssl') {
       steps {
       sh 'yum install make gcc perl pcre-devel zlib-devel wget -y'
