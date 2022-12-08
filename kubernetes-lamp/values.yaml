@@ -15,7 +15,7 @@ selector:
 
 image:
   repository: 779160054397.dkr.ecr.us-east-1.amazonaws.com/lampserver
-  tag: 21.36
+  tag: 23
 
 
 volumes:
