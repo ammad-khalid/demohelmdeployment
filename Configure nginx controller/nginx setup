@@ -1,4 +1,4 @@
-1. Need to install nginx controller to run nginx ingress on aks.
+1. Need to install nginx controller to run nginx ingress.
 
 we will install nginx controller from Helm
 
