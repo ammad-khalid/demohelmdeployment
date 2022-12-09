@@ -4,9 +4,9 @@ pipeline {
     KEY_ID = credentials('KEY_ID')
     KEY_SECRET = credentials('KEY_SECRET')
     ACCOUNT_ID = credentials('ACCOUNT_ID')
-    EMAIL = credentials('EMAIL')
+    /*EMAIL = credentials('EMAIL')
     USERNAME = credentials('USERNAME')
-    GH_TOKEN = credentials('GH_TOKEN')
+    GH_TOKEN = credentials('GH_TOKEN')*/
   }
   stages {
 
