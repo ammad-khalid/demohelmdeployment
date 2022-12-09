@@ -38,8 +38,7 @@ pipeline {
         sh 'aws configure set region "eu-west-1"'
         sh 'aws configure set output "json"'
         sh 'aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.eu-west-1.amazonaws.com'
-
-        sh 'pwd && ls -lha'
+      
         sh 'docker build -t ${ACCOUNT_ID}.dkr.ecr.eu-west-1.amazonaws.com/lampserver:${BUILD_ID} -f docker/Dockerfile .'
         sh 'docker push ${ACCOUNT_ID}.dkr.ecr.eu-west-1.amazonaws.com/lampserver:${BUILD_ID}'
       }
@@ -63,8 +62,7 @@ pipeline {
     }
     stage ('eks connection') {
       steps {
-      sh 'cat ~/.aws/credentials'
-      sh 'aws eks --region eu-west-1 update-kubeconfig --name jenkins'
+      sh 'aws eks --region eu-west-1 update-kubeconfig --name dev-eks'
       sh 'helm upgrade --install lamp -n app1 kubernetes-lamp/.'  
       }
     
