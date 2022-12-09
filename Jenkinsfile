@@ -12,7 +12,7 @@ pipeline {
 
     stage ('adding dependencies') {
       steps {
-         sh 'yum update -y && yum install -y makecache unzip'
+         sh 'yum update -y && yum install -y makecache unzip wget'
          sh 'rm -rf awscliv2.zip awscliv2 aws'
          sh 'curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"'
          sh 'unzip awscliv2.zip'
